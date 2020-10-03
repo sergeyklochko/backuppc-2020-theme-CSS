@@ -1,0 +1,392 @@
+@import 'global-mixins.sass'
+
+@use '../../node_modules/normalize.css/normalize.css'
+@use 'my-normalize.sass'
+@import 'breakpoints.sass'
+@import 'animations.sass'
+
+//
+  "New look" - BackupPC CSS definitions mod
+  Version 0.1, released 1 Oct 2020.
+
+  AUTHOR
+    Sergey Klochko <sergey@klochko.ru>
+
+  COPYRIGHT
+    Copyright (C) 2020 Sergey Klochko
+
+
+
+//- global
+
+=button($value, $color)
+  input[value~=#{$value}]
+    +bgcolor($white)
+    color: $color
+    font-variant: all-small-caps
+    border: 1px solid $color
+    &:hover
+      +bgcolor($color)
+      color: $white
+    @content
+
+//- colors
+
+$navbg: #F0F2F8
+$black: #333
+$white: #fff
+$accent: #4983DD
+$accent-strong: #2774ED //#0064FF
+$faint: #EFEFEF
+$faint-strong: #DFDFDF
+$faint-weak: #f6f6f6
+$critic: #ff4b4b
+
+$font: 'Roboto', Arial, Helvetica, sans-serif
+
+// manual line height
+$lh: 1.5
+$manualmargin: 10px 0
+
+body
+  +bgcolor(white)
+  +row
+  +lh(1.4)
+  padding: 0
+  color: $black
+  font-family: $font
+  font-weight: 300
+  font-size: 16px
+  line-height: 24px
+
+h1
+  +mt(35px)
+  font-style: normal
+  font-weight: 500
+  font-size: 36px
+  line-height: 42px
+  border-bottom: 1px solid $black
+
+td._podblock_
+  font-style: normal
+  font-weight: 500
+  font-size: 36px
+  line-height: 42px
+  border-bottom: 1px solid $black
+  margin: 30px 0
+  +bgcolor($white !important)
+  &::first-letter
+    +ml(-10px)
+  display: block
+
+
+h2
+  +mt(40px)
+  +mb(10px)
+  font-style: normal
+  font-weight: normal
+  font-size: 24px
+  line-height: 1
+  font-variant: all-petite-caps
+
+a
+  color: $accent
+
+#Content
+  a:hover
+    text-decoration: underline
+
+#navigation-container
+  +bgcolor($navbg)
+  +mh(100vh)
+  max-width: 260px
+  +column
+  align-items: center
+  #logo-container
+    padding: 0 30px
+    +flex
+    img
+      +w(200px)
+      +mt(30px)
+
+.NavMenu.section-title
+  overflow-x: hidden
+  h2
+    +fs(18px)
+    overflow-wrap: anywhere
+    +lowercase
+    font-variant: inherit
+
+input[type='text']
+  +h(30px)
+  padding: 0px 10px
+  +mw(40px)
+  +w(auto)
+  border: 1px solid $faint-strong
+  +bgcolor($white)
+  color: $black
+  &:hover
+    cursor: pointer
+
+input[type='submit'], input[type='button'], input[name='SetComment']
+  +h(30px)
+  padding: 0px 10px
+  +mw(40px)
+  +w(auto)
+  text-transform: uppercase
+  border: none
+  border-radius: 4px
+  +bgcolor($accent)
+  color: $white
+  &:hover
+    cursor: pointer
+    +bgcolor($accent-strong)
+
++button('Save', $accent)
+  +fs(18px)
++button('Delete', $critic)
++button('Add', $accent)
+
+input[name='SetComment']
+  +bgcolor($accent !important)
+  color: $white
+  &:hover
+    +bgcolor($accent-strong !important)
+
+#NavMenu, .NavMenu
+  h2
+    margin: 20px 0 0px
+    padding: 15px 30px 10px
+    max-width: 260px
+    overflow-x:
+
+
+  select, input[type='text']
+    border: 1px solid $faint-strong
+  select
+    margin: 0 30px 10px
+    padding: 6px 10px
+    +h(30px)
+    +w(200px)
+  input[type='text']
+    +mr(2px)
+    +h(30px)
+    +ml(30px)
+    +w(153px)
+    padding: 6px 10px
+  +w(100%)
+  +column
+  align-self: normal
+  a
+    +w(100%)
+    padding: 5px 30px
+    font-style: normal
+    font-weight: 300
+    font-size: 16px
+    line-height: 19px
+    font-variant: all-small-caps
+    &:hover
+      +bgcolor($accent)
+      color: white
+
+.NavCurrent
+  +bgcolor($accent)
+  color: $white
+
+#Content
+  padding: 0px 30px
+  +w(100%)
+
+h1
+  p
+  +mb(40px)
+
+h2 + form // backup browse elements
+  table td:first-child
+    border: none
+  table td:last-child
+    table td
+      border: 1px solid $faint-strong
+      +pr(10px)
+
+ul p img
+  margin: 10px 0
+  +w(auto)
+  +ml(30px)
+  max-width: 687px
+
+ul li ul
+  +ml(30px)
+
+li > form
+  margin: 10px 0
+
+.tableStnd
+  td
+    border: 1px solid $faint-strong
+    padding: 5px 10px
+
+table.sortable
+  td, td:last-child
+    +pl(10px)
+    +pr(10px)
+    border: 1px solid $faint-strong
+
+
+table
+  max-width: 100%
+  +w(100%)
+  border: none
+  border-left: 1px solid $white
+  border-right: 1px solid $white
+  border-collapse: collapse
+  .tableheader, .fviewheader
+    +bgcolor($faint)
+    font-weight: 300
+    font-size: 16px
+    line-height: 19px
+    font-variant: all-small-caps
+    border: 1px solid $white
+  td
+    padding: 5px 2px
+    border: 1px solid $white
+  td:last-child
+    padding: 5px 0px 5px 2px
+  td
+    input
+      border: 1px solid $faint
+      +lh(30px)
+
+      padding: 0 10px
+      width: 100%
+      cursor: pointer
+      font-family: $font
+      font-weight: 300
+    input[type='checkbox']
+      width: auto
+      +ml(10px)
+    td + input
+      width: auto
+  .editTabSel
+    +bgcolor($accent)
+    a
+      color: $white
+    b
+      +font-light
+  .editTabSel, .editTabNoSel
+    font-variant: all-small-caps
+    cursor: pointer
+    border-radius: 10px 10px 0px 0px
+    border: 1px solid $white
+    +pl(10px)
+    &:last-child
+      +pl(10px)
+  .editTabSel, .editTabNoSel:hover
+    border: none
+  .editTabNoSel
+    +bgcolor($faint-strong)
+    a
+      color: $black
+    &:hover
+      +bgcolor($accent)
+      border: 1px solid $white
+      a
+        color: $white
+
+td.editHeader
+  border: none
+  font-style: normal
+  font-weight: normal
+  font-size: 24px
+  line-height: 1
+  font-variant: all-petite-caps
+  +pt(10px)
+  +bgcolor($faint-weak)
+  border: none
+
+input + p + table
+  border: none
+  +mt(20px)
+  +bgcolor($white)
+  td
+    border: none
+
+.editSubTable
+  tr:first-child
+    td:first-child
+        border-right: 1px solid $faint-weak
+  td:first-child
+    margin: 0px auto
+    +w(80px)
+
+  tr:first-child
+    +bgcolor($faint-weak)
+    border: 1px solid $faint-weak
+    +pl(10px)
+  .tableheader
+    +bgcolor($faint-weak)
+    border: 1px solid $white
+    +pl(12px)
+
+tr
+  td:first-child
+    +pl(10px)
+
+h1 + br
+  +hide
+
+form[name='ReloadForm']
+  .tableStnd
+    display: block
+    td
+      border: none
+      +pl(0)
+
+pre
+  margin: 30px 0
+
+#manual
+  p
+    margin: 10px 0
+    +lh($lh)
+  ul li
+    list-style: initial
+
+#index li ul
+  +ml(30px)
+
+#index li
+  list-style: none !important
+
+#index
+  ul li
+    list-style: none !important
+    +mt(5px)
+    +mb(5px)
+
+#index ~ hr
+  display: none
+
+#index ~ h1
+  +mt(50px)
+
+#index ~ p, dd p, #index ~ li
+  margin: $manualmargin
+  +lh($lh)
+
+dt
+  font-weight: 400
+  margin: $manualmargin 5px
+
+#index ~ ul li
+  margin: 5px 0 5px 30px
+  +lh($lh)
+  p
+    margin: $manualmargin
+    +lh($lh)
+
+#index a:hover
+  text-decoration: underline
+
+*
+  //border: 0.5px gray solid

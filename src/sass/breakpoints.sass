@@ -1,0 +1,96 @@
+@import 'global-mixins.sass'
+
+// breakpoints
+$xxldesktop-width: 1600px
+$xldesktop-width: 1200px
+$desktop-width: 1024px
+$handled-width: 850px
+$phones-width: 500px
+$low-height: 700px
+
+//- Container width
+$cxlw: 1600px  //- XL desktop
+$cxw: 1200px  //- XL desktop
+$cdw: 960px   //- desktop
+$ctw: 800px   //- tablet
+$cpw: 94vw    //- phones
+
+=xxldesktop
+  @media only screen and (min-width: $xxldesktop-width)
+    @content
+
+=xldesktop
+  @media only screen and (min-width: $xldesktop-width) and (max-width: $xxldesktop-width - 1px)
+    @content
+
+=desktop
+  @media only screen and (min-width: $desktop-width) and (max-width: $xldesktop-width - 1px)
+    @content
+
+=handled
+  @media only screen and (min-width: $handled-width) and (max-width: $desktop-width - 1px)
+    @content
+
+=tablet
+  +handled
+
+=hand
+  +handled
+
+=phones
+  @media only screen and (max-width: $phones-width)
+    @content
+
+=landscape-phones
+  @media only screen and (max-height: $low-height)
+    @content
+
+=handled-size
+  @media only screen and (max-width: $handled-width)
+    @content
+
+=phone-size
+  @media only screen and (max-width: $phones-width)
+    @content
+
+=desktop-max
+  .container
+    +w(94vw)
+  +xxldesktop
+    +w($cdw)
+  +xldesktop
+    +w($cdw)
+  +desktop
+    +w($cdw)
+  +handled
+    +w($ctw)
+  +phones
+    +w($cpw)
+
+=xldesktop-max
+  .container
+    +w(94vw)
+  +xxldesktop
+    +w($cxw)
+  +xldesktop
+    +w($cxw)
+  +desktop
+    +w($cdw)
+  +handled
+    +w($ctw)
+  +phones
+    +w($cpw)
+
+.container
+  +w(94vw)
+  +xxldesktop
+    +w($cxlw)
+  +xldesktop
+    +w($cxw)
+  +desktop
+    +w($cdw)
+  +handled
+    +w($ctw)
+  +phones
+    +w($cpw)
+  margin: 0 auto

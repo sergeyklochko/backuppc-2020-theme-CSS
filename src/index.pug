@@ -1,0 +1,73 @@
+doctype html
+html(lang='ru' id='here')
+
+  include ./include/global-mixins.pug
+  include ./include/local-mixins.pug
+  include ./include/header.pug
+
+  #Content
+    h1 BackupPC Server Status
+    p
+    h2 Currently Running Jobs
+    p
+      table.tableStnd.sortable(border='' cellspacing='1' cellpadding='3')
+        tbody
+          tr.tableheader
+            td  Host
+            td  Type
+            td  User
+            td  Start Time
+            td  Command
+            td(align='center')  PID
+            td(align='center')  Xfer PID
+            td(align='center')  Status
+            td(align='center')  Count
+          tr
+            td.border
+              a(href='https://backup.mezon.local/cgi-bin/BackupPC_Admin?host=nas_fsroot') nas_fsroot
+            td.border(align='center')  full
+            td.border(align='center')
+              a(href='mailto:root@mezonplus.ru') root
+            td.border(data-date_format='2')  2020-10-01 21:37
+            td.border  BackupPC_dump -f nas_fsroot
+            td.border(align='center')  14081
+            td.border(align='center')  14096, 14098
+            td.border(align='center')  backup share "fsroot"
+            td.border(align='center')  3821
+    p
+    h2 General Server Information
+    ul
+      li The servers PID is 13,  on host 99a11c69a47a, version 4.4.0, started at 2020-08-17 23:13.
+      li This status was generated at 2020-10-01 12:41.
+      li The configuration was last loaded at 2020-09-04 18:45.
+      li PCs will be next queued at 2020-10-01 13:00.
+      li Other info:
+        ul
+          li 0 pending backup requests from last scheduled wakeup,
+          li 0 pending user backup requests,
+          li 0 pending command requests,
+          li Pool is 12.89GiB comprising 231370 files and 16512 directories (as of 2020-10-01 01:03),
+          li Pool hashing gives 0 repeated files with longest chain 0,
+          li Nightly cleanup removed 1443 files of size 0.89GiB (around 2020-10-01 01:03),
+          li Pool file system was recently at 80% (2020-10-01 12:36), today's max is 80% (2020-10-01 01:00) and yesterday's max was 80%.
+          li Pool file system inode usage was recently at 0% (2020-10-01 12:36), today's max is 0% (2020-07-21 01:00) and yesterday's max was 0%.
+    ul
+      ul
+        p
+          img(src='./img/1.png')
+        p
+          img(src='./img/2.png')
+    h2 Failures that need attention
+    p
+      table.tableStnd.sortable(border='' cellspacing='1' cellpadding='3')
+        tbody
+          tr.tableheader
+            td(align='center')  Host
+            td(align='center')  Type
+            td(align='center')  User
+            td(align='center')  Last Try
+            td(align='center')  Details
+            td(align='center')  Error Time
+            td  Last error (other than no ping)
+
+  include ./include/scripts.pug

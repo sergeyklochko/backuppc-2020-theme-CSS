@@ -1,0 +1,106 @@
+doctype html
+html(lang='ru' id='here')
+
+  include ./include/global-mixins.pug
+  include ./include/local-mixins.pug
+  include ./include/header.pug
+
+  #Content
+    h1 Log File History
+    p
+      table.tableStnd.sortable(border='' cellspacing='1' cellpadding='3' width='80%')
+        tbody
+          tr.tableheader
+            td(align='center')  File
+            td(align='center')  Size
+            td(align='center')  Modification time
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=')
+                tt LOG
+            td(align='right')  1878558
+            td  2020-10-02 15:07:20
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=0')
+                tt LOG.0.z
+            td(align='right')  66059
+            td  2020-10-02 01:00:01
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=1')
+                tt LOG.1.z
+            td(align='right')  65891
+            td  2020-10-01 01:00:01
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=2')
+                tt LOG.2.z
+            td(align='right')  64387
+            td  2020-09-30 01:00:00
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=3')
+                tt LOG.3.z
+            td(align='right')  63926
+            td  2020-09-29 01:00:01
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=4')
+                tt LOG.4.z
+            td(align='right')  64091
+            td  2020-09-28 01:00:01
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=5')
+                tt LOG.5.z
+            td(align='right')  72265
+            td  2020-09-27 01:00:01
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=6')
+                tt LOG.6.z
+            td(align='right')  68966
+            td  2020-09-26 01:00:02
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=7')
+                tt LOG.7.z
+            td(align='right')  68332
+            td  2020-09-25 01:00:00
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=8')
+                tt LOG.8.z
+            td(align='right')  65886
+            td  2020-09-24 01:00:00
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=9')
+                tt LOG.9.z
+            td(align='right')  66779
+            td  2020-09-23 01:00:00
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=10')
+                tt LOG.10.z
+            td(align='right')  65148
+            td  2020-09-22 01:00:00
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=11')
+                tt LOG.11.z
+            td(align='right')  65047
+            td  2020-09-21 01:00:00
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=12')
+                tt LOG.12.z
+            td(align='right')  63759
+            td  2020-09-20 01:00:01
+          tr
+            td
+              a(href='/BackupPC_Admin?action=view&type=LOG&num=13')
+                tt LOG.13.z
+            td(align='right')  68889
+            td  2020-09-19 01:00:00

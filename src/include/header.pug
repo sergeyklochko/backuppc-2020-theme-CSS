@@ -1,0 +1,60 @@
+
+head
+  title BackupPC Server Status
+  link(rel='stylesheet' type='text/css' href='/BackupPC/BackupPC_mod.css?version=2' title='CSSFile')
+  link(rel='apple-touch-icon' sizes='180x180' href='/BackupPC/apple-touch-icon.png?v=2')
+  link(rel='icon' type='image/png' sizes='32x32' href='/BackupPC/favicon-32x32.png?v=2')
+  link(rel='icon' type='image/png' sizes='16x16' href='/BackupPC/favicon-16x16.png?v=2')
+  link(rel='mask-icon' href='/BackupPC/safari-pinned-tab.svg?v=2' color='#5bbad5')
+  link(rel='shortcut icon' href='/BackupPC/favicon.ico?v=2')
+  meta(http-equiv='pragma' content='no-cache')
+  script(src='/BackupPC/sorttable.js')
+
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge')
+  meta(charset='UTF-8')
+
+  //- link(rel='icon', type='image/svg+xml', href='')
+  link(rel='icon', type='image/png', href='./img/favicon.png')
+  link(rel='stylesheet' href='./css/all.css')
+  link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,600,700,900')
+
+body(onload="document.getElementById('NavMenu').style.height=document.body.scrollHeight")
+  #navigation-container
+    #logo-container
+      a(href='https://backuppc.github.io/backuppc/')
+        img(src='./img/backuppc.svg')
+    .NavMenu.section-title
+      h2.NavTitle proto.mumuproject.com
+    .NavMenu.host
+      a.NavCurrent(href='./server.html') proto.mumuproject.com Home
+      a(href='./browse.html') Browse backups
+      a(href='/BackupPC_Admin?action=view&type=LOG&host=proto.mumuproject.com') LOG file
+      a(href='/BackupPC_Admin?action=LOGlist&host=proto.mumuproject.com') LOG files
+      a(href='/BackupPC_Admin?action=editConfig&host=proto.mumuproject.com') Edit Config
+
+    #NavMenu.NavMenu
+      h2.NavTitle Hosts
+      select(onchange='document.location=this.value')
+        option(value='#') Select a host...
+        option(value='?host=proto.mumuproject.com') proto.mumuproject.com
+        option(value='?host=s1.mumuproject.com') s1.mumuproject.com
+        option(value='?host=s2.mumuproject.com') s2.mumuproject.com
+      form(action='/BackupPC_Admin' method='get')
+        input(type='text' name='host' size='14' maxlength='64')
+        input(type='hidden' name='action' value='hostInfo')
+        input(type='submit' value='Go' name='ignore')
+      h2.NavTitle Server
+      a.NavCurrent(href='./index.html') Status
+      a(href='./hostsummary.html') Host Summary
+      a(href='./config.html') Edit Config
+      a(href='./hosts.html') Edit Hosts
+      a(href='./admin.html') Admin Options
+      a(href='./log.html') LOG file
+      a(href='./logs.html') Old LOGs
+      a(href='./email.html') Email summary
+      a(href='./queue.html') Current queues
+      a(href='./docs.html') Documentation
+      a(href='https://github.com/backuppc/backuppc/wiki') Wiki
+      a(href='https://backuppc.github.io/backuppc') Homepage
+  // end #navigation-container

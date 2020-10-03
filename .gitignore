@@ -1,0 +1,6 @@
+build/*
+public/*
+src/public/*
+*.psd
+.DS_Store
+node_modules/*

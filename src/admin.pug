@@ -1,0 +1,20 @@
+doctype html
+html(lang='ru' id='here')
+
+  include ./include/global-mixins.pug
+  include ./include/local-mixins.pug
+  include ./include/header.pug
+
+  #Content
+    h1 Admin Options
+    br
+    h2 Server Control
+    form(name='ReloadForm' action='/BackupPC_Admin' method='get')
+      input(type='hidden' name='action' value='')
+      table.tableStnd
+        tbody
+          tr
+            td Reload the server configuration:
+            td
+              input(type='button' value='Reload' onclick="document.ReloadForm.action.value='Reload';\
+              document.ReloadForm.submit();")

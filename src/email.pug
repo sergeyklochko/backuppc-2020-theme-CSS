@@ -1,0 +1,17 @@
+doctype html
+html(lang='ru' id='here')
+
+  include ./include/global-mixins.pug
+  include ./include/local-mixins.pug
+  include ./include/header.pug
+
+  #Content
+    h1 Recent Email Summary (Reverse time order)
+    p
+      table.tableStnd.sortable(border='' cellspacing='1' cellpadding='3' width='80%')
+        tbody
+          tr.tableheader
+            td(align='center')  Recipient
+            td(align='center')  Host
+            td(align='center')  Time
+            td(align='center')  Subject

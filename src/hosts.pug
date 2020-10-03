@@ -1,0 +1,839 @@
+doctype html
+html(lang='ru' id='here')
+
+  include ./include/global-mixins.pug
+  include ./include/local-mixins.pug
+  include ./include/header.pug
+
+  #Content
+    h1 Main Configuration Editor
+    input.editSaveButton(type='button' name='editAction' value='Save' onclick='saveSubmit();')
+    p
+
+    table(border='0' cellpadding='2')
+      tbody
+        tr
+          td.editTabNoSel
+            a(href="javascript:menuSubmit('backup')") Backup Settings
+          td.editTabNoSel
+            a(href="javascript:menuSubmit('cgi')") CGI
+          td.editTabNoSel
+            a(href="javascript:menuSubmit('email')") Email
+          td.editTabSel
+            a(href="javascript:menuSubmit('hosts')")
+              b Hosts
+          td.editTabNoSel
+            a(href="javascript:menuSubmit('schedule')") Schedule
+          td.editTabNoSel
+            a(href="javascript:menuSubmit('server')") Server
+          td.editTabNoSel
+            a(href="javascript:menuSubmit('xfer')") Xfer
+        tr
+          form(method='post' name='editForm' action='/BackupPC_Admin?action=editConfig')
+          input(type='hidden' name='host' value='')
+          input(type='hidden' name='menu' value='hosts')
+          input(type='hidden' name='newMenu' value='')
+          input(type='hidden' name='modified' value='0')
+          input(type='hidden' name='deleteVar' value='')
+          input(type='hidden' name='insertVar' value='')
+          input(type='hidden' name='overrideUncheck' value='')
+          input(type='hidden' name='addVar' value='')
+          input(type='hidden' name='action' value='editConfig')
+          input(type='hidden' name='saveAction' value='')
+    table(border='1' cellspacing='0')
+      tbody
+        tr
+          td.editHeader(colspan='2') Hosts
+        tr
+          td.border
+            a(href='?action=view&type=docs#_conf_hosts_') Hosts
+          td.border
+            table.editSubTable(border='1' cellspacing='0')
+              tbody
+                tr
+                  td.border
+                  td.tableheader host
+                  td.tableheader dhcp
+                  td.tableheader user
+                  td.tableheader moreUsers
+                tr
+                  td.border
+                    input(type='button' name='del_Hosts_zZ_0' value='Delete' onclick="deleteSubmit('Hosts_zZ_0')")
+                  td.border
+                    input.editTextInput(type='text' name='v_zZ_Hosts_zZ_0_zZ_0' size='20' maxlength='4096' value='proto.mumuproject.com' onchange="varChange('Hosts_zZ_0_zZ_0');")
+                  td.border
+                    input(type='checkbox' name='v_zZ_Hosts_zZ_0_zZ_1' value='1' onchange="varChange('Hosts_zZ_0_zZ_1');")
+                  td.border
+                    input.editTextInput(type='text' name='v_zZ_Hosts_zZ_0_zZ_2' size='20' maxlength='4096' value='root' onchange="varChange('Hosts_zZ_0_zZ_2');")
+                  td.border
+                    input.editTextInput(type='text' name='v_zZ_Hosts_zZ_0_zZ_3' size='30' maxlength='4096' value='' onchange="varChange('Hosts_zZ_0_zZ_3');")
+                tr
+                  td.border
+                    input(type='button' name='del_Hosts_zZ_1' value='Delete' onclick="deleteSubmit('Hosts_zZ_1')")
+                  td.border
+                    input.editTextInput(type='text' name='v_zZ_Hosts_zZ_1_zZ_0' size='20' maxlength='4096' value='s1.mumuproject.com' onchange="varChange('Hosts_zZ_1_zZ_0');")
+                  td.border
+                    input(type='checkbox' name='v_zZ_Hosts_zZ_1_zZ_1' value='1' onchange="varChange('Hosts_zZ_1_zZ_1');")
+                  td.border
+                    input.editTextInput(type='text' name='v_zZ_Hosts_zZ_1_zZ_2' size='20' maxlength='4096' value='root' onchange="varChange('Hosts_zZ_1_zZ_2');")
+                  td.border
+                    input.editTextInput(type='text' name='v_zZ_Hosts_zZ_1_zZ_3' size='30' maxlength='4096' value='' onchange="varChange('Hosts_zZ_1_zZ_3');")
+                tr
+                  td.border
+                    input(type='button' name='del_Hosts_zZ_2' value='Delete' onclick="deleteSubmit('Hosts_zZ_2')")
+                  td.border
+                    input.editTextInput(type='text' name='v_zZ_Hosts_zZ_2_zZ_0' size='20' maxlength='4096' value='s2.mumuproject.com' onchange="varChange('Hosts_zZ_2_zZ_0');")
+                  td.border
+                    input(type='checkbox' name='v_zZ_Hosts_zZ_2_zZ_1' value='1' onchange="varChange('Hosts_zZ_2_zZ_1');")
+                  td.border
+                    input.editTextInput(type='text' name='v_zZ_Hosts_zZ_2_zZ_2' size='20' maxlength='4096' value='root' onchange="varChange('Hosts_zZ_2_zZ_2');")
+                  td.border
+                    input.editTextInput(type='text' name='v_zZ_Hosts_zZ_2_zZ_3' size='30' maxlength='4096' value='' onchange="varChange('Hosts_zZ_2_zZ_3');")
+                tr
+                  td.border(colspan='5')
+                    input(type='button' name='add_Hosts' value='Add' onclick="addSubmit('Hosts')")
+        tr
+          td.editComment(colspan='2')
+            | To add a new host, select Add and then enter the name.  To start with
+            | the per-host configuration from another host, enter the host name
+            | as NEWHOST=COPYHOST.  This will overwrite any existing per-host
+            | configuration for NEWHOST.  You can also do this for an existing
+            | host.  To delete a host, hit the Delete button.  For Add, Delete,
+            | and configuration copy, changes don't take effect until you select
+            | Save.  None of the deleted host's backups will be removed,
+            | so if you accidently delete a host, simply re-add it.  To completely
+            | remove a host's backups, you need to manually remove the files
+            | below /data/backuppc/pc/HOST
+    span#debug
+      pre.
+    input(type='hidden' name='v_zZ_ArchiveClientCmd' value='$Installdir/bin/BackupPC_archiveHost $tarCreatePath $splitpath $parpath $host $backupnumber $compression $compext $splitsize $archiveloc $parfile *')
+    input(type='hidden' name='v_zZ_ArchiveComp' value='gzip')
+    input(type='hidden' name='v_zZ_ArchiveDest' value='/tmp')
+    input(type='hidden' name='v_zZ_ArchiveInfoKeepCnt' value='10')
+    input(type='hidden' name='v_zZ_ArchivePar' value='0')
+    input(type='hidden' name='v_zZ_ArchivePostUserCmd' value='')
+    input(type='hidden' name='v_zZ_ArchivePreUserCmd' value='')
+    input(type='hidden' name='v_zZ_ArchiveSplit' value='0')
+    input(type='hidden' name='v_flds_BackupFilesExclude_zZ_0' value='*')
+    input(type='hidden' name='v_zZ_BackupFilesExclude_zZ_0_zZ_0' value='/node_modules')
+    input(type='hidden' name='v_zZ_BackupFilesExclude_zZ_0_zZ_1' value='*.log')
+    input(type='hidden' name='v_zZ_BackupPCNightlyPeriod' value='1')
+    input(type='hidden' name='v_zZ_BackupPCUser' value='backuppc')
+    input(type='hidden' name='v_zZ_BackupPCUserVerify' value='1')
+    input(type='hidden' name='v_zZ_BackupZeroFilesIsFatal' value='1')
+    input(type='hidden' name='v_zZ_BackupsDisable' value='0')
+    input(type='hidden' name='v_zZ_BlackoutBadPingLimit' value='3')
+    input(type='hidden' name='v_zZ_BlackoutGoodCnt' value='7')
+    input(type='hidden' name='v_zZ_Bzip2Path' value='/usr/bin/bzip2')
+    input(type='hidden' name='v_zZ_CatPath' value='/bin/cat')
+    input(type='hidden' name='v_zZ_CgiAdminUserGroup' value='')
+    input(type='hidden' name='v_zZ_CgiAdminUsers' value='backuppc')
+    input(type='hidden' name='v_zZ_CgiCSSFile' value='BackupPC_mod.css')
+    input(type='hidden' name='v_zZ_CgiDateFormatMMDD' value='2')
+    input(type='hidden' name='v_zZ_CgiDir' value='/var/www/cgi-bin/BackupPC')
+    input(type='hidden' name='v_zZ_CgiHeaders' value='<meta http-equiv="pragma" content="no-cache">')
+    input(type='hidden' name='v_zZ_CgiImageDir' value='/var/www/html/BackupPC')
+    input(type='hidden' name='v_zZ_CgiImageDirURL' value='/BackupPC')
+    input(type='hidden' name='v_zZ_CgiNavBarAdminAllHosts' value='1')
+    input(type='hidden' name='v_zZ_CgiNavBarLinks_zZ_0_zZ_0' value='?action=view&type=docs')
+    input(type='hidden' name='v_zZ_CgiNavBarLinks_zZ_0_zZ_1' value='Documentation')
+    input(type='hidden' name='v_zZ_CgiNavBarLinks_zZ_0_zZ_2' value='')
+    input(type='hidden' name='v_zZ_CgiNavBarLinks_zZ_1_zZ_0' value='https://github.com/backuppc/backuppc/wiki')
+    input(type='hidden' name='v_zZ_CgiNavBarLinks_zZ_1_zZ_1' value='')
+    input(type='hidden' name='v_zZ_CgiNavBarLinks_zZ_1_zZ_2' value='Wiki')
+    input(type='hidden' name='v_zZ_CgiNavBarLinks_zZ_2_zZ_0' value='https://backuppc.github.io/backuppc')
+    input(type='hidden' name='v_zZ_CgiNavBarLinks_zZ_2_zZ_1' value='')
+    input(type='hidden' name='v_zZ_CgiNavBarLinks_zZ_2_zZ_2' value='Homepage')
+    input(type='hidden' name='v_zZ_CgiSearchBoxEnable' value='1')
+    input(type='hidden' name='v_zZ_CgiStatusHilightColor_zZ_0' value='#d1d1d1')
+    input(type='hidden' name='v_zZ_CgiStatusHilightColor_zZ_1' value='#d1d1d1')
+    input(type='hidden' name='v_zZ_CgiStatusHilightColor_zZ_2' value='#ff9900')
+    input(type='hidden' name='v_zZ_CgiStatusHilightColor_zZ_3' value='#ccffcc')
+    input(type='hidden' name='v_zZ_CgiStatusHilightColor_zZ_4' value='#ffcccc')
+    input(type='hidden' name='v_zZ_CgiStatusHilightColor_zZ_5' value='#ffff99')
+    input(type='hidden' name='v_zZ_CgiStatusHilightColor_zZ_6' value='#66cc99')
+    input(type='hidden' name='v_zZ_CgiURL' value='http://36821f8f02f7/cgi-bin/BackupPC/BackupPC_Admin')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_0' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_1' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_2' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_3' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_4' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_5' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_6' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_7' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_8' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_9' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_10' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_11' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_12' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_13' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_14' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_15' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_16' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_17' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_18' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_19' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_20' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_21' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_22' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_23' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_24' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_25' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_26' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_27' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_28' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_29' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_30' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_31' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_32' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_33' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_34' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_35' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_36' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_37' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_38' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_39' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_40' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_41' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_42' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_43' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_44' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_45' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_46' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_47' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_48' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_49' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_50' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_51' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_52' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_53' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_54' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_55' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_56' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_57' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_58' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_59' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_60' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_61' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_62' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_63' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_64' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_65' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_66' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_67' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_68' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_69' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_70' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_71' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_72' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_73' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_74' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_75' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_76' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_77' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_78' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_79' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_80' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_81' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_82' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_83' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_84' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_85' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_86' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_87' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_88' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_89' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_90' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_91' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_92' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_93' value='0')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_94' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEdit_zZ_95' value='1')
+    input(type='hidden' name='v_zZ_CgiUserConfigEditEnable' value='1')
+    input(type='hidden' name='v_zZ_CgiUserDeleteBackupEnable' value='0')
+    input(type='hidden' name='v_zZ_CgiUserHomePageCheck' value='')
+    input(type='hidden' name='v_zZ_CgiUserUrlCreate' value='mailto:%s')
+    input(type='hidden' name='v_zZ_ClientCharset' value='')
+    input(type='hidden' name='v_zZ_ClientCharsetLegacy' value='iso-8859-1')
+    input(type='hidden' name='v_zZ_ClientComment' value='')
+    input(type='hidden' name='v_zZ_ClientTimeout' value='72000')
+    input(type='hidden' name='v_zZ_CmdQueueNice' value='10')
+    input(type='hidden' name='v_zZ_CompressLevel' value='3')
+    input(type='hidden' name='v_zZ_ConfDir' value='/etc/backuppc')
+    input(type='hidden' name='v_zZ_DfCmd' value='$dfPath $topDir')
+    input(type='hidden' name='v_zZ_DfInodeUsageCmd' value='$dfPath -i $topDir')
+    input(type='hidden' name='v_zZ_DfMaxInodeUsagePct' value='95')
+    input(type='hidden' name='v_zZ_DfMaxUsagePct' value='95')
+    input(type='hidden' name='v_zZ_DfPath' value='/bin/df')
+    input(type='hidden' name='v_zZ_DumpPostShareCmd' value='')
+    input(type='hidden' name='v_zZ_DumpPostUserCmd' value='')
+    input(type='hidden' name='v_zZ_DumpPreShareCmd' value='')
+    input(type='hidden' name='v_zZ_DumpPreUserCmd' value='')
+    input(type='hidden' name='v_zZ_EMailAdminSubject' value='')
+    input(type='hidden' name='v_zZ_EMailAdminUserName' value='backuppc')
+    input(type='hidden' name='v_zZ_EMailFromUserName' value='backuppc')
+    input(type='hidden' name='v_zZ_EMailHeaders' value='MIME-Version: 1.0\
+    Content-Type: text/plain; charset="utf-8"\
+    ')
+    input(type='hidden' name='v_zZ_EMailNoBackupEverMesg' value='')
+    input(type='hidden' name='v_zZ_EMailNoBackupEverSubj' value='')
+    input(type='hidden' name='v_zZ_EMailNoBackupRecentMesg' value='')
+    input(type='hidden' name='v_zZ_EMailNoBackupRecentSubj' value='')
+    input(type='hidden' name='v_zZ_EMailNotifyMinDays' value='2.5')
+    input(type='hidden' name='v_zZ_EMailNotifyOldBackupDays' value='7')
+    input(type='hidden' name='v_zZ_EMailNotifyOldOutlookDays' value='5')
+    input(type='hidden' name='v_zZ_EMailOutlookBackupMesg' value='')
+    input(type='hidden' name='v_zZ_EMailOutlookBackupSubj' value='')
+    input(type='hidden' name='v_zZ_EMailUserDestDomain' value='')
+    input(type='hidden' name='v_zZ_FillCycle' value='0')
+    input(type='hidden' name='v_zZ_FixedIPNetBiosNameCheck' value='0')
+    input(type='hidden' name='v_zZ_FtpBlockSize' value='10240')
+    input(type='hidden' name='v_zZ_FtpFollowSymlinks' value='0')
+    input(type='hidden' name='v_zZ_FtpPassive' value='1')
+    input(type='hidden' name='v_zZ_FtpPasswd' value='')
+    input(type='hidden' name='v_zZ_FtpPort' value='21')
+    input(type='hidden' name='v_zZ_FtpShareName_zZ_0' value='')
+    input(type='hidden' name='v_zZ_FtpTimeout' value='120')
+    input(type='hidden' name='v_zZ_FtpUserName' value='')
+    input(type='hidden' name='v_zZ_FullAgeMax' value='3650')
+    input(type='hidden' name='v_zZ_FullKeepCnt' value='30, 12, 5')
+    input(type='hidden' name='v_zZ_FullKeepCntMin' value='30')
+    input(type='hidden' name='v_zZ_FullPeriod' value='0.97')
+    input(type='hidden' name='v_zZ_GzipPath' value='/usr/bin/gzip')
+    input(type='hidden' name='v_zZ_HardLinkMax' value='31999')
+    input(type='hidden' name='v_zZ_IncrAgeMax' value='30')
+    input(type='hidden' name='v_zZ_IncrKeepCnt' value='60')
+    input(type='hidden' name='v_zZ_IncrKeepCntMin' value='1')
+    input(type='hidden' name='v_zZ_IncrPeriod' value='0.04')
+    input(type='hidden' name='v_zZ_InstallDir' value='/usr/local/BackupPC')
+    input(type='hidden' name='v_zZ_Language' value='en')
+    input(type='hidden' name='v_zZ_LogDir' value='/data/backuppc/log')
+    input(type='hidden' name='v_zZ_MaxBackupPCNightlyJobs' value='2')
+    input(type='hidden' name='v_zZ_MaxBackups' value='4')
+    input(type='hidden' name='v_zZ_MaxOldLogFiles' value='15')
+    input(type='hidden' name='v_zZ_MaxOldPerPCLogFiles' value='12')
+    input(type='hidden' name='v_zZ_MaxPendingCmds' value='15')
+    input(type='hidden' name='v_zZ_MaxUserBackups' value='4')
+    input(type='hidden' name='v_zZ_MyPath' value='/bin')
+    input(type='hidden' name='v_zZ_NmbLookupCmd' value='$nmbLookupPath -A $host')
+    input(type='hidden' name='v_zZ_NmbLookupFindHostCmd' value='$nmbLookupPath $host')
+    input(type='hidden' name='v_zZ_NmbLookupPath' value='/usr/bin/nmblookup')
+    input(type='hidden' name='v_zZ_ParPath' value='/usr/bin/par2')
+    input(type='hidden' name='v_zZ_Ping6Path' value='/bin/ping6')
+    input(type='hidden' name='v_zZ_PingCmd' value='$pingPath -c 1 $host')
+    input(type='hidden' name='v_zZ_PingMaxMsec' value='200')
+    input(type='hidden' name='v_zZ_PingPath' value='/bin/ping')
+    input(type='hidden' name='v_zZ_PoolNightlyDigestCheckPercent' value='1')
+    input(type='hidden' name='v_zZ_PoolSizeNightlyUpdatePeriod' value='16')
+    input(type='hidden' name='v_zZ_PoolV3Enabled' value='0')
+    input(type='hidden' name='v_zZ_RefCntFsck' value='1')
+    input(type='hidden' name='v_zZ_RestoreInfoKeepCnt' value='10')
+    input(type='hidden' name='v_zZ_RestorePostUserCmd' value='')
+    input(type='hidden' name='v_zZ_RestorePreUserCmd' value='')
+    input(type='hidden' name='v_zZ_RrdToolPath' value='/usr/bin/rrdtool')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_0' value='--super')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_1' value='--recursive')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_2' value='--protect-args')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_3' value='--numeric-ids')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_4' value='--perms')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_5' value='--owner')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_6' value='--group')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_7' value='-D')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_8' value='--times')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_9' value='--links')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_10' value='--hard-links')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_11' value='--delete')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_12' value='--delete-excluded')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_13' value='--one-file-system')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_14' value='--partial')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_15' value='--log-format=log: %o %i %B %8U,%8G %9l %f%L')
+    input(type='hidden' name='v_zZ_RsyncArgs_zZ_16' value='--stats')
+    input(type='hidden' name='v_zZ_RsyncBackupPCPath' value='/usr/local/bin/rsync_bpc')
+    input(type='hidden' name='v_zZ_RsyncClientPath' value='/usr/bin/rsync')
+    input(type='hidden' name='v_zZ_RsyncFullArgsExtra_zZ_0' value='--checksum')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_0' value='--recursive')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_1' value='--super')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_2' value='--protect-args')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_3' value='--numeric-ids')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_4' value='--perms')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_5' value='--owner')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_6' value='--group')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_7' value='-D')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_8' value='--times')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_9' value='--links')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_10' value='--hard-links')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_11' value='--delete')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_12' value='--partial')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_13' value='--log-format=log: %o %i %B %8U,%8G %9l %f%L')
+    input(type='hidden' name='v_zZ_RsyncRestoreArgs_zZ_14' value='--stats')
+    input(type='hidden' name='v_zZ_RsyncShareName_zZ_0' value='/')
+    input(type='hidden' name='v_zZ_RsyncSshArgs_zZ_0' value='-e')
+    input(type='hidden' name='v_zZ_RsyncSshArgs_zZ_1' value='$sshPath -l root')
+    input(type='hidden' name='v_zZ_RsyncdClientPort' value='873')
+    input(type='hidden' name='v_zZ_RsyncdPasswd' value='')
+    input(type='hidden' name='v_zZ_RsyncdUserName' value='')
+    input(type='hidden' name='v_zZ_RunDir' value='/var/run/BackupPC')
+    input(type='hidden' name='v_zZ_SCGIServerPort' value='-1')
+    input(type='hidden' name='v_zZ_SendmailPath' value='/usr/sbin/sendmail')
+    input(type='hidden' name='v_zZ_ServerHost' value='99a11c69a47a')
+    input(type='hidden' name='v_zZ_ServerInitdPath' value='')
+    input(type='hidden' name='v_zZ_ServerInitdStartCmd' value='')
+    input(type='hidden' name='v_zZ_ServerMesgSecret' value='')
+    input(type='hidden' name='v_zZ_ServerPort' value='-1')
+    input(type='hidden' name='v_zZ_SmbClientFullCmd' value='$smbClientPath \\$host\$shareName $I_option -U $userName -E -d 1 -c tarmode\ full -mSMB3 -Tc$X_option - $fileList')
+    input(type='hidden' name='v_zZ_SmbClientIncrCmd' value='$smbClientPath \\$host\$shareName $I_option -U $userName -E -d 1 -c tarmode\ full -mSMB3 -TcN$X_option $timeStampFile - $fileList')
+    input(type='hidden' name='v_zZ_SmbClientPath' value='/usr/bin/smbclient')
+    input(type='hidden' name='v_zZ_SmbClientRestoreCmd' value='$smbClientPath \\$host\$shareName $I_option -U $userName -E -d 1 -c tarmode\ full -mSMB3 -Tx -')
+    input(type='hidden' name='v_zZ_SmbShareName_zZ_0' value='C$')
+    input(type='hidden' name='v_zZ_SmbSharePasswd' value='')
+    input(type='hidden' name='v_zZ_SmbShareUserName' value='')
+    input(type='hidden' name='v_zZ_SplitPath' value='/usr/bin/split')
+    input(type='hidden' name='v_zZ_SshPath' value='/usr/bin/ssh')
+    input(type='hidden' name='v_zZ_TarClientCmd' value='$sshPath -q -x -n -l root $host env LC_ALL=C $tarPath -c -v -f - -C $shareName+ --totals')
+    input(type='hidden' name='v_zZ_TarClientPath' value='/usr/bin/tar')
+    input(type='hidden' name='v_zZ_TarClientRestoreCmd' value='$sshPath -q -x -l root $host env LC_ALL=C $tarPath -x -p --numeric-owner --same-owner -v -f - -C $shareName+')
+    input(type='hidden' name='v_zZ_TarFullArgs' value='$fileList+')
+    input(type='hidden' name='v_zZ_TarIncrArgs' value='--newer=$incrDate+ $fileList+')
+    input(type='hidden' name='v_zZ_TarShareName_zZ_0' value='/')
+    input(type='hidden' name='v_zZ_TopDir' value='/data/backuppc')
+    input(type='hidden' name='v_zZ_UmaskMode' value='23')
+    input(type='hidden' name='v_zZ_UserCmdCheckStatus' value='0')
+    input(type='hidden' name='v_zZ_WakeupSchedule' value='1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23')
+    input(type='hidden' name='v_zZ_XferLogLevel' value='1')
+    input(type='hidden' name='v_zZ_XferMethod' value='rsync')
+    input(type='hidden' name='orig_zZ_ArchiveClientCmd' value='$Installdir/bin/BackupPC_archiveHost $tarCreatePath $splitpath $parpath $host $backupnumber $compression $compext $splitsize $archiveloc $parfile *')
+    input(type='hidden' name='orig_zZ_ArchiveComp' value='gzip')
+    input(type='hidden' name='orig_zZ_ArchiveDest' value='/tmp')
+    input(type='hidden' name='orig_zZ_ArchiveInfoKeepCnt' value='10')
+    input(type='hidden' name='orig_zZ_ArchivePar' value='0')
+    input(type='hidden' name='orig_zZ_ArchivePostUserCmd' value='')
+    input(type='hidden' name='orig_zZ_ArchivePreUserCmd' value='')
+    input(type='hidden' name='orig_zZ_ArchiveSplit' value='0')
+    input(type='hidden' name='orig_flds_BackupFilesExclude_zZ_0' value='*')
+    input(type='hidden' name='orig_zZ_BackupFilesExclude_zZ_0_zZ_0' value='/node_modules')
+    input(type='hidden' name='orig_zZ_BackupFilesExclude_zZ_0_zZ_1' value='*.log')
+    input(type='hidden' name='orig_zZ_BackupPCNightlyPeriod' value='1')
+    input(type='hidden' name='orig_zZ_BackupPCUser' value='backuppc')
+    input(type='hidden' name='orig_zZ_BackupPCUserVerify' value='1')
+    input(type='hidden' name='orig_zZ_BackupZeroFilesIsFatal' value='1')
+    input(type='hidden' name='orig_zZ_BackupsDisable' value='0')
+    input(type='hidden' name='orig_zZ_BlackoutBadPingLimit' value='3')
+    input(type='hidden' name='orig_zZ_BlackoutGoodCnt' value='7')
+    input(type='hidden' name='orig_zZ_Bzip2Path' value='/usr/bin/bzip2')
+    input(type='hidden' name='orig_zZ_CatPath' value='/bin/cat')
+    input(type='hidden' name='orig_zZ_CgiAdminUserGroup' value='')
+    input(type='hidden' name='orig_zZ_CgiAdminUsers' value='backuppc')
+    input(type='hidden' name='orig_zZ_CgiCSSFile' value='BackupPC_mod.css')
+    input(type='hidden' name='orig_zZ_CgiDateFormatMMDD' value='2')
+    input(type='hidden' name='orig_zZ_CgiDir' value='/var/www/cgi-bin/BackupPC')
+    input(type='hidden' name='orig_zZ_CgiHeaders' value='<meta http-equiv="pragma" content="no-cache">')
+    input(type='hidden' name='orig_zZ_CgiImageDir' value='/var/www/html/BackupPC')
+    input(type='hidden' name='orig_zZ_CgiImageDirURL' value='/BackupPC')
+    input(type='hidden' name='orig_zZ_CgiNavBarAdminAllHosts' value='1')
+    input(type='hidden' name='orig_zZ_CgiNavBarLinks_zZ_0_zZ_0' value='?action=view&type=docs')
+    input(type='hidden' name='orig_zZ_CgiNavBarLinks_zZ_0_zZ_1' value='Documentation')
+    input(type='hidden' name='orig_zZ_CgiNavBarLinks_zZ_0_zZ_2' value='')
+    input(type='hidden' name='orig_zZ_CgiNavBarLinks_zZ_1_zZ_0' value='https://github.com/backuppc/backuppc/wiki')
+    input(type='hidden' name='orig_zZ_CgiNavBarLinks_zZ_1_zZ_1' value='')
+    input(type='hidden' name='orig_zZ_CgiNavBarLinks_zZ_1_zZ_2' value='Wiki')
+    input(type='hidden' name='orig_zZ_CgiNavBarLinks_zZ_2_zZ_0' value='https://backuppc.github.io/backuppc')
+    input(type='hidden' name='orig_zZ_CgiNavBarLinks_zZ_2_zZ_1' value='')
+    input(type='hidden' name='orig_zZ_CgiNavBarLinks_zZ_2_zZ_2' value='Homepage')
+    input(type='hidden' name='orig_zZ_CgiSearchBoxEnable' value='1')
+    input(type='hidden' name='orig_zZ_CgiStatusHilightColor_zZ_0' value='#d1d1d1')
+    input(type='hidden' name='orig_zZ_CgiStatusHilightColor_zZ_1' value='#d1d1d1')
+    input(type='hidden' name='orig_zZ_CgiStatusHilightColor_zZ_2' value='#ff9900')
+    input(type='hidden' name='orig_zZ_CgiStatusHilightColor_zZ_3' value='#ccffcc')
+    input(type='hidden' name='orig_zZ_CgiStatusHilightColor_zZ_4' value='#ffcccc')
+    input(type='hidden' name='orig_zZ_CgiStatusHilightColor_zZ_5' value='#ffff99')
+    input(type='hidden' name='orig_zZ_CgiStatusHilightColor_zZ_6' value='#66cc99')
+    input(type='hidden' name='orig_zZ_CgiURL' value='http://36821f8f02f7/cgi-bin/BackupPC/BackupPC_Admin')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_0' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_1' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_2' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_3' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_4' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_5' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_6' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_7' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_8' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_9' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_10' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_11' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_12' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_13' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_14' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_15' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_16' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_17' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_18' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_19' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_20' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_21' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_22' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_23' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_24' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_25' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_26' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_27' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_28' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_29' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_30' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_31' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_32' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_33' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_34' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_35' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_36' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_37' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_38' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_39' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_40' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_41' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_42' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_43' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_44' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_45' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_46' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_47' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_48' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_49' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_50' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_51' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_52' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_53' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_54' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_55' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_56' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_57' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_58' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_59' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_60' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_61' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_62' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_63' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_64' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_65' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_66' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_67' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_68' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_69' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_70' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_71' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_72' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_73' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_74' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_75' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_76' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_77' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_78' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_79' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_80' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_81' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_82' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_83' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_84' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_85' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_86' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_87' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_88' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_89' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_90' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_91' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_92' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_93' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_94' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEdit_zZ_95' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserConfigEditEnable' value='1')
+    input(type='hidden' name='orig_zZ_CgiUserDeleteBackupEnable' value='0')
+    input(type='hidden' name='orig_zZ_CgiUserHomePageCheck' value='')
+    input(type='hidden' name='orig_zZ_CgiUserUrlCreate' value='mailto:%s')
+    input(type='hidden' name='orig_zZ_ClientCharset' value='')
+    input(type='hidden' name='orig_zZ_ClientCharsetLegacy' value='iso-8859-1')
+    input(type='hidden' name='orig_zZ_ClientComment' value='')
+    input(type='hidden' name='orig_zZ_ClientTimeout' value='72000')
+    input(type='hidden' name='orig_zZ_CmdQueueNice' value='10')
+    input(type='hidden' name='orig_zZ_CompressLevel' value='3')
+    input(type='hidden' name='orig_zZ_ConfDir' value='/etc/backuppc')
+    input(type='hidden' name='orig_zZ_DfCmd' value='$dfPath $topDir')
+    input(type='hidden' name='orig_zZ_DfInodeUsageCmd' value='$dfPath -i $topDir')
+    input(type='hidden' name='orig_zZ_DfMaxInodeUsagePct' value='95')
+    input(type='hidden' name='orig_zZ_DfMaxUsagePct' value='95')
+    input(type='hidden' name='orig_zZ_DfPath' value='/bin/df')
+    input(type='hidden' name='orig_zZ_DumpPostShareCmd' value='')
+    input(type='hidden' name='orig_zZ_DumpPostUserCmd' value='')
+    input(type='hidden' name='orig_zZ_DumpPreShareCmd' value='')
+    input(type='hidden' name='orig_zZ_DumpPreUserCmd' value='')
+    input(type='hidden' name='orig_zZ_EMailAdminSubject' value='')
+    input(type='hidden' name='orig_zZ_EMailAdminUserName' value='backuppc')
+    input(type='hidden' name='orig_zZ_EMailFromUserName' value='backuppc')
+    input(type='hidden' name='orig_zZ_EMailHeaders' value='MIME-Version: 1.0\
+    Content-Type: text/plain; charset="utf-8"\
+    ')
+    input(type='hidden' name='orig_zZ_EMailNoBackupEverMesg' value='')
+    input(type='hidden' name='orig_zZ_EMailNoBackupEverSubj' value='')
+    input(type='hidden' name='orig_zZ_EMailNoBackupRecentMesg' value='')
+    input(type='hidden' name='orig_zZ_EMailNoBackupRecentSubj' value='')
+    input(type='hidden' name='orig_zZ_EMailNotifyMinDays' value='2.5')
+    input(type='hidden' name='orig_zZ_EMailNotifyOldBackupDays' value='7')
+    input(type='hidden' name='orig_zZ_EMailNotifyOldOutlookDays' value='5')
+    input(type='hidden' name='orig_zZ_EMailOutlookBackupMesg' value='')
+    input(type='hidden' name='orig_zZ_EMailOutlookBackupSubj' value='')
+    input(type='hidden' name='orig_zZ_EMailUserDestDomain' value='')
+    input(type='hidden' name='orig_zZ_FillCycle' value='0')
+    input(type='hidden' name='orig_zZ_FixedIPNetBiosNameCheck' value='0')
+    input(type='hidden' name='orig_zZ_FtpBlockSize' value='10240')
+    input(type='hidden' name='orig_zZ_FtpFollowSymlinks' value='0')
+    input(type='hidden' name='orig_zZ_FtpPassive' value='1')
+    input(type='hidden' name='orig_zZ_FtpPasswd' value='')
+    input(type='hidden' name='orig_zZ_FtpPort' value='21')
+    input(type='hidden' name='orig_zZ_FtpShareName_zZ_0' value='')
+    input(type='hidden' name='orig_zZ_FtpTimeout' value='120')
+    input(type='hidden' name='orig_zZ_FtpUserName' value='')
+    input(type='hidden' name='orig_zZ_FullAgeMax' value='3650')
+    input(type='hidden' name='orig_zZ_FullKeepCnt' value='30, 12, 5')
+    input(type='hidden' name='orig_zZ_FullKeepCntMin' value='30')
+    input(type='hidden' name='orig_zZ_FullPeriod' value='0.97')
+    input(type='hidden' name='orig_zZ_GzipPath' value='/usr/bin/gzip')
+    input(type='hidden' name='orig_zZ_HardLinkMax' value='31999')
+    input(type='hidden' name='orig_zZ_Hosts_zZ_0_zZ_0' value='proto.mumuproject.com')
+    input(type='hidden' name='orig_zZ_Hosts_zZ_0_zZ_1' value='0')
+    input(type='hidden' name='orig_zZ_Hosts_zZ_0_zZ_2' value='root')
+    input(type='hidden' name='orig_zZ_Hosts_zZ_0_zZ_3' value='')
+    input(type='hidden' name='orig_zZ_Hosts_zZ_1_zZ_0' value='s1.mumuproject.com')
+    input(type='hidden' name='orig_zZ_Hosts_zZ_1_zZ_1' value='0')
+    input(type='hidden' name='orig_zZ_Hosts_zZ_1_zZ_2' value='root')
+    input(type='hidden' name='orig_zZ_Hosts_zZ_1_zZ_3' value='')
+    input(type='hidden' name='orig_zZ_Hosts_zZ_2_zZ_0' value='s2.mumuproject.com')
+    input(type='hidden' name='orig_zZ_Hosts_zZ_2_zZ_1' value='0')
+    input(type='hidden' name='orig_zZ_Hosts_zZ_2_zZ_2' value='root')
+    input(type='hidden' name='orig_zZ_Hosts_zZ_2_zZ_3' value='')
+    input(type='hidden' name='orig_zZ_IncrAgeMax' value='30')
+    input(type='hidden' name='orig_zZ_IncrKeepCnt' value='60')
+    input(type='hidden' name='orig_zZ_IncrKeepCntMin' value='1')
+    input(type='hidden' name='orig_zZ_IncrPeriod' value='0.04')
+    input(type='hidden' name='orig_zZ_InstallDir' value='/usr/local/BackupPC')
+    input(type='hidden' name='orig_zZ_Language' value='en')
+    input(type='hidden' name='orig_zZ_LogDir' value='/data/backuppc/log')
+    input(type='hidden' name='orig_zZ_MaxBackupPCNightlyJobs' value='2')
+    input(type='hidden' name='orig_zZ_MaxBackups' value='4')
+    input(type='hidden' name='orig_zZ_MaxOldLogFiles' value='15')
+    input(type='hidden' name='orig_zZ_MaxOldPerPCLogFiles' value='12')
+    input(type='hidden' name='orig_zZ_MaxPendingCmds' value='15')
+    input(type='hidden' name='orig_zZ_MaxUserBackups' value='4')
+    input(type='hidden' name='orig_zZ_MyPath' value='/bin')
+    input(type='hidden' name='orig_zZ_NmbLookupCmd' value='$nmbLookupPath -A $host')
+    input(type='hidden' name='orig_zZ_NmbLookupFindHostCmd' value='$nmbLookupPath $host')
+    input(type='hidden' name='orig_zZ_NmbLookupPath' value='/usr/bin/nmblookup')
+    input(type='hidden' name='orig_zZ_ParPath' value='/usr/bin/par2')
+    input(type='hidden' name='orig_zZ_Ping6Path' value='/bin/ping6')
+    input(type='hidden' name='orig_zZ_PingCmd' value='$pingPath -c 1 $host')
+    input(type='hidden' name='orig_zZ_PingMaxMsec' value='200')
+    input(type='hidden' name='orig_zZ_PingPath' value='/bin/ping')
+    input(type='hidden' name='orig_zZ_PoolNightlyDigestCheckPercent' value='1')
+    input(type='hidden' name='orig_zZ_PoolSizeNightlyUpdatePeriod' value='16')
+    input(type='hidden' name='orig_zZ_PoolV3Enabled' value='0')
+    input(type='hidden' name='orig_zZ_RefCntFsck' value='1')
+    input(type='hidden' name='orig_zZ_RestoreInfoKeepCnt' value='10')
+    input(type='hidden' name='orig_zZ_RestorePostUserCmd' value='')
+    input(type='hidden' name='orig_zZ_RestorePreUserCmd' value='')
+    input(type='hidden' name='orig_zZ_RrdToolPath' value='/usr/bin/rrdtool')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_0' value='--super')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_1' value='--recursive')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_2' value='--protect-args')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_3' value='--numeric-ids')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_4' value='--perms')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_5' value='--owner')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_6' value='--group')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_7' value='-D')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_8' value='--times')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_9' value='--links')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_10' value='--hard-links')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_11' value='--delete')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_12' value='--delete-excluded')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_13' value='--one-file-system')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_14' value='--partial')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_15' value='--log-format=log: %o %i %B %8U,%8G %9l %f%L')
+    input(type='hidden' name='orig_zZ_RsyncArgs_zZ_16' value='--stats')
+    input(type='hidden' name='orig_zZ_RsyncBackupPCPath' value='/usr/local/bin/rsync_bpc')
+    input(type='hidden' name='orig_zZ_RsyncClientPath' value='/usr/bin/rsync')
+    input(type='hidden' name='orig_zZ_RsyncFullArgsExtra_zZ_0' value='--checksum')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_0' value='--recursive')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_1' value='--super')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_2' value='--protect-args')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_3' value='--numeric-ids')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_4' value='--perms')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_5' value='--owner')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_6' value='--group')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_7' value='-D')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_8' value='--times')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_9' value='--links')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_10' value='--hard-links')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_11' value='--delete')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_12' value='--partial')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_13' value='--log-format=log: %o %i %B %8U,%8G %9l %f%L')
+    input(type='hidden' name='orig_zZ_RsyncRestoreArgs_zZ_14' value='--stats')
+    input(type='hidden' name='orig_zZ_RsyncShareName_zZ_0' value='/')
+    input(type='hidden' name='orig_zZ_RsyncSshArgs_zZ_0' value='-e')
+    input(type='hidden' name='orig_zZ_RsyncSshArgs_zZ_1' value='$sshPath -l root')
+    input(type='hidden' name='orig_zZ_RsyncdClientPort' value='873')
+    input(type='hidden' name='orig_zZ_RsyncdPasswd' value='')
+    input(type='hidden' name='orig_zZ_RsyncdUserName' value='')
+    input(type='hidden' name='orig_zZ_RunDir' value='/var/run/BackupPC')
+    input(type='hidden' name='orig_zZ_SCGIServerPort' value='-1')
+    input(type='hidden' name='orig_zZ_SendmailPath' value='/usr/sbin/sendmail')
+    input(type='hidden' name='orig_zZ_ServerHost' value='99a11c69a47a')
+    input(type='hidden' name='orig_zZ_ServerInitdPath' value='')
+    input(type='hidden' name='orig_zZ_ServerInitdStartCmd' value='')
+    input(type='hidden' name='orig_zZ_ServerMesgSecret' value='')
+    input(type='hidden' name='orig_zZ_ServerPort' value='-1')
+    input(type='hidden' name='orig_zZ_SmbClientFullCmd' value='$smbClientPath \\$host\$shareName $I_option -U $userName -E -d 1 -c tarmode\ full -mSMB3 -Tc$X_option - $fileList')
+    input(type='hidden' name='orig_zZ_SmbClientIncrCmd' value='$smbClientPath \\$host\$shareName $I_option -U $userName -E -d 1 -c tarmode\ full -mSMB3 -TcN$X_option $timeStampFile - $fileList')
+    input(type='hidden' name='orig_zZ_SmbClientPath' value='/usr/bin/smbclient')
+    input(type='hidden' name='orig_zZ_SmbClientRestoreCmd' value='$smbClientPath \\$host\$shareName $I_option -U $userName -E -d 1 -c tarmode\ full -mSMB3 -Tx -')
+    input(type='hidden' name='orig_zZ_SmbShareName_zZ_0' value='C$')
+    input(type='hidden' name='orig_zZ_SmbSharePasswd' value='')
+    input(type='hidden' name='orig_zZ_SmbShareUserName' value='')
+    input(type='hidden' name='orig_zZ_SplitPath' value='/usr/bin/split')
+    input(type='hidden' name='orig_zZ_SshPath' value='/usr/bin/ssh')
+    input(type='hidden' name='orig_zZ_TarClientCmd' value='$sshPath -q -x -n -l root $host env LC_ALL=C $tarPath -c -v -f - -C $shareName+ --totals')
+    input(type='hidden' name='orig_zZ_TarClientPath' value='/usr/bin/tar')
+    input(type='hidden' name='orig_zZ_TarClientRestoreCmd' value='$sshPath -q -x -l root $host env LC_ALL=C $tarPath -x -p --numeric-owner --same-owner -v -f - -C $shareName+')
+    input(type='hidden' name='orig_zZ_TarFullArgs' value='$fileList+')
+    input(type='hidden' name='orig_zZ_TarIncrArgs' value='--newer=$incrDate+ $fileList+')
+    input(type='hidden' name='orig_zZ_TarShareName_zZ_0' value='/')
+    input(type='hidden' name='orig_zZ_TopDir' value='/data/backuppc')
+    input(type='hidden' name='orig_zZ_UmaskMode' value='23')
+    input(type='hidden' name='orig_zZ_UserCmdCheckStatus' value='0')
+    input(type='hidden' name='orig_zZ_WakeupSchedule' value='1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23')
+    input(type='hidden' name='orig_zZ_XferLogLevel' value='1')
+    input(type='hidden' name='orig_zZ_XferMethod' value='rsync')
+
+
+    script(language='javascript' type='text/javascript').
+      <!--
+      function saveSubmit()
+      {
+      if ( document.editForm.modified.value != 0 ) {
+      document.editForm.saveAction.value = 'Save';
+      document.editForm.submit();
+      }
+      return false;
+      }
+      function deleteSubmit(varName)
+      {
+      document.editForm.deleteVar.value = varName;
+      document.editForm.modified.value = 1;
+      document.editForm.submit();
+      return;
+      }
+      function insertSubmit(varName)
+      {
+      document.editForm.insertVar.value = varName;
+      document.editForm.modified.value = 1;
+      document.editForm.submit();
+      return;
+      }
+      function addSubmit(varName, checkKey)
+      {
+      if ( checkKey
+      && eval("document.editForm.addVarKey_" + varName + ".value") == "" ) {
+      alert("New key must be non-empty");
+      return;
+      }
+      document.editForm.addVar.value = varName;
+      document.editForm.modified.value = 1;
+      document.editForm.submit();
+      return;
+      }
+      function menuSubmit(menuName)
+      {
+      document.editForm.newMenu.value = menuName;
+      document.editForm.submit();
+      }
+      function varChange(varName)
+      {
+      document.editForm.modified.value = 1;
+      document.editForm.editAction.style.color = '#ff0000';
+      }
+      function checkboxChange(varName)
+      {
+      document.editForm.modified.value = 1;
+      document.editForm.editAction.style.color = '#ff0000';
+      // Do nothing if the checkbox is now set
+      if ( eval("document.editForm.override_" + varName + ".checked") ) {
+      return false;
+      }
+      var allVars = {};
+      var varRE  = new RegExp("^v_((zZ_|flds_)" + varName + ".*)");
+      var origRE = new RegExp("^orig_((zZ_|flds_)" + varName + ".*)");
+      var fldsRE = new RegExp("^flds_");
+      for ( var i = 0 ; i < document.editForm.elements.length ; i++ ) {
+      var e = document.editForm.elements[i];
+      var re;
+      if ( (re = varRE.exec(e.name)) != null ) {
+      if ( allVars[re[1]] == null ) {
+      allVars[re[1]] = 0;
+      }
+      allVars[re[1]]++;
+      //debugMsg("found v_ match with " + re[1]);
+      //debugMsg("allVars[" + re[1] + "] = " + allVars[re[1]]);
+      } else if ( (re = origRE.exec(e.name)) != null ) {
+      if ( allVars[re[1]] == null ) {
+      allVars[re[1]] = 0;
+      }
+      allVars[re[1]]--;
+      //debugMsg("allVars[" + re[1] + "] = " + allVars[re[1]]);
+      }
+      }
+      var sameShape = 1;
+      for ( v in allVars ) {
+      if ( allVars[v] != 0 ) {
+      //debugMsg("Not the same shape because of " + v);
+      sameShape = 0;
+      break;
+      }
+      if ( fldsRE.exec(v) != null ) {
+      // always rebuild a compound variable
+      sameShape = 0;
+      break;
+      }
+      }
+      if ( sameShape ) {
+      for ( v in allVars ) {
+      // copy the original variable values
+      //debugMsg("setting " + v);
+      eval("document.editForm.v_" + v + ".value = document.editForm.orig_" + v + ".value");
+      }
+      return true;
+      } else {
+      // need to rebuild the form since the compound variable
+      // has changed shape
+      document.editForm.overrideUncheck.value = varName;
+      document.editForm.submit();
+      return false;
+      }
+      }
+      function checkboxSet(varName)
+      {
+      document.editForm.modified.value = 1;
+      document.editForm.editAction.style.color = '#ff0000';
+      eval("document.editForm.override_" + varName + ".checked = 1;");
+      return false;
+      }
+      var debugCounter = 0;
+      function debugMsg(msg)
+      {
+      debugCounter++;
+      var t = document.createTextNode(debugCounter + ": " + msg);
+      var br = document.createElement("br");
+      var debug = document.getElementById("debug");
+      debug.appendChild(t);
+      debug.appendChild(br);
+      }
+      function displayHelp(varName)
+      {
+      var help = document.getElementById("id_" + varName);
+      help.style.display = help.style.display == "block" ? "none" : "block";
+      }
+      //-->
