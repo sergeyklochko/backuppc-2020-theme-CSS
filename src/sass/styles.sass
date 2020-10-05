@@ -2,12 +2,11 @@
 
 @use '../../node_modules/normalize.css/normalize.css'
 @use 'my-normalize.sass'
-@import 'breakpoints.sass'
-@import 'animations.sass'
+
 
 //
-  "New look" - BackupPC CSS definitions mod
-  Version 0.1, released 1 Oct 2020.
+  "2020 look" - BackupPC CSS definitions mod
+  Version 1.0, released 5 Oct 2020.
 
   AUTHOR
     Sergey Klochko <sergey@klochko.ru>
@@ -435,3 +434,32 @@ dt
 
 *
   //border: 0.5px gray solid
+
+
+// select css override
+
+select
+	font-size: inherit
+	font-family: inherit
+	font-weight: inherit
+	padding: 6px 30px 6px 10px
+	box-sizing: border-box
+	margin: 0
+	border: 1px solid $faint-strong
+	-moz-appearance: none
+	-webkit-appearance: none
+	appearance: none
+	background: $white url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTQiIGhlaWdodD0iNTQiIHZpZXdCb3g9IjAgMCA5NCA1NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gPHBhdGggZD0iTTQ3IDU0TDkzLjc2NTQgMC43NUgwLjIzNDYyN0w0NyA1NFoiIGZpbGw9IiM0OTgzREQiLz4KPC9zdmc+Cg==') no-repeat
+	background-position: right 10px top 50%, 0 0
+	background-size: 10px auto, 100%
+
+
+select::-ms-expand
+	display: none
+
+select:hover
+	cursor: pointer
+
+select:focus
+	outline: none
+
