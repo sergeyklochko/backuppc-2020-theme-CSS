@@ -36,7 +36,8 @@ $navbg: #F0F2F8
 $black: #333
 $white: #fff
 $accent: #4983DD
-$accent-strong: #2774ED //#0064FF
+$accent-strong: #6C9EEB //#2774ED //#0064FF
+$accent-weak: #C8D6EC//#6C9EEB//#9BA9BF //#D8DEE7
 $faint: #EFEFEF
 $faint-strong: #DFDFDF
 $faint-weak: #f6f6f6
@@ -150,6 +151,8 @@ input[type='submit'], input[type='button'], input[name='SetComment']
 input[name='SetComment']
   +bgcolor($accent !important)
   color: $white
+  font-variant: none
+  font-size: 13px
   &:hover
     +bgcolor($accent-strong !important)
 
@@ -185,13 +188,14 @@ input[name='SetComment']
     font-size: 16px
     line-height: 19px
     font-variant: all-small-caps
+    color: $black
     &:hover
-      +bgcolor($accent)
-      color: white
+      +bgcolor($accent-weak)
+      //color: white
 
 .NavCurrent
-  +bgcolor($accent)
-  color: $white
+  +bgcolor($accent !important)
+  color: $white !important
 
 #Content
   padding: 0px 30px
@@ -201,13 +205,43 @@ h1
   p
   +mb(40px)
 
-h2 + form // backup browse elements
-  table td:first-child
+h2 + form // backup browse page elements
+  br
+    +hide
+  fviewheader + td
+  td:first-child
     border: none
-  table td:last-child
+  td:last-child
     table td
       border: 1px solid $faint-strong
       +pr(10px)
+  input[type='checkbox']
+    +mr(10px)
+  img
+    +w(auto)
+    +inline
+    height: 23px
+  td
+    br + table
+      img
+        //+mt(3px)
+        +mr(5px)
+  table table:first-child
+    td
+      padding: 0
+      +lh(18px)
+  .fviewoff
+    img
+      +w(auto !important)
+    a:last-child
+      +ml(5px)
+
+form[name~='formDir'], form[name~='formComment']
+  +flex
+  align-items: baseline
+  input[type='text']
+    margin: 0 5px
+
 
 ul p img
   margin: 10px 0
@@ -221,6 +255,7 @@ ul li ul
 li > form
   margin: 10px 0
 
+
 .tableStnd
   td
     border: 1px solid $faint-strong
@@ -232,8 +267,12 @@ table.sortable
     +pr(10px)
     border: 1px solid $faint-strong
 
+#host_summary_backups
+  +mt(10px)
 
 table
+  font-size: inherit
+  font-weight: inherit
   max-width: 100%
   +w(100%)
   border: none
@@ -285,13 +324,16 @@ table
     border: none
   .editTabNoSel
     +bgcolor($faint-strong)
+    &:hover
+      +bgcolor($accent-weak)
+      border: 1px solid white
     a
       color: $black
-    &:hover
-      +bgcolor($accent)
-      border: 1px solid $white
-      a
-        color: $white
+      width: 100%
+      display: block
+      &:hover
+        text-decoration: none !important
+
 
 td.editHeader
   border: none
@@ -310,6 +352,9 @@ input + p + table
   +bgcolor($white)
   td
     border: none
+
+td
+  +font-light
 
 .editSubTable
   tr:first-child

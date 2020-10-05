@@ -49,7 +49,8 @@ const imgFiles = [
   './src/**/*.jpg',
   './src/**/*.jpeg',
   './src/**/*.svg',
-  './src/**/*.png'
+  './src/**/*.png',
+  './src/**/*.gif'
 ]
 
 function buildImages () {
@@ -139,7 +140,7 @@ function buildCSS () {
     .pipe(sass.sync({
       includePaths: require('node-normalize-scss').includePaths
     }).on('error', sass.logError))
-    .pipe(concat('all.css'))
+    .pipe(concat('BackupPC_mod.css'))
     .pipe(gcmq())
     .pipe(autoprefixer({
       cascade: false
