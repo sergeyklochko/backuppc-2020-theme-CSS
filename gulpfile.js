@@ -40,11 +40,6 @@ function buildHTML () {
     .pipe(gulp.dest(destdir))
 }
 
-const imgfolder = destdir + '/img'
-const publicfolder = destdir + '/public'
-const jsfolder = destdir + '/js'
-const cssfolder = destdir + '/css'
-
 const imgFiles = [
   './src/**/*.ico',
   './src/**/*.jpg',
@@ -55,6 +50,7 @@ const imgFiles = [
 ]
 
 function buildImages () {
+  var imgfolder = destdir + '/img'
   console.log(new Date().toISOString().slice(0, 16).replace('T', ' ') + ' images target directory: ' + imgfolder)
   return gulp.src(imgFiles)
     .pipe(flatten())
@@ -66,6 +62,7 @@ const publicFiles = [
 ]
 
 function copyPublic() {
+  var publicfolder = destdir + '/public'
   console.log(new Date().toISOString().slice(0, 16).replace('T', ' ') + ' public files target directory: ' + publicfolder)
   return gulp.src(publicFiles)
     .pipe(gulp.dest(publicfolder))
@@ -111,6 +108,7 @@ const jsFiles = [
 ]
 
 function buildJS () {
+  var jsfolder = destdir + '/js'
   console.log(new Date().toISOString().slice(0, 16).replace('T', ' ') + ' js target directory: ' + jsfolder)
   return gulp.src(jsFiles)
     .pipe(gulpif(isDev, sourcemaps.init({ loadMaps: true })))
@@ -134,9 +132,10 @@ const sassFiles = [
   './src/**/*.css'
 ]
 
-const cssFileName = 'BackupPC_mod.css'
+const cssFileName = 'BackupPC_2020_mod.css'
 
 function buildCSS () {
+  var cssfolder = destdir + '/css'
   console.log(new Date().toISOString().slice(0, 16).replace('T', ' ') + ' css target directory: ' + cssfolder)
   return gulp.src(sassFiles)
     .pipe(gulpif(isDev, sourcemaps.init({ loadMaps: true })))
