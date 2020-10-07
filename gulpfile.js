@@ -32,6 +32,7 @@ let builddir = '/Users/sergeyklochko/OneDrive/seventeendots/sites/' + projectnam
 let destdir = '/Users/sergeyklochko/OneDrive/seventeendots/sites/' + projectname
 let publicdir = './public'
 
+
 function buildHTML () {
   console.log(new Date().toISOString().slice(0, 16).replace('T', ' ') + ' html target directory: ' + destdir)
   return gulp.src('./src/*.pug')
@@ -133,6 +134,8 @@ const sassFiles = [
   './src/**/*.css'
 ]
 
+const cssFileName = 'BackupPC_mod.css'
+
 function buildCSS () {
   console.log(new Date().toISOString().slice(0, 16).replace('T', ' ') + ' css target directory: ' + cssfolder)
   return gulp.src(sassFiles)
@@ -140,7 +143,7 @@ function buildCSS () {
     .pipe(sass.sync({
       includePaths: require('node-normalize-scss').includePaths
     }).on('error', sass.logError))
-    .pipe(concat('BackupPC_mod.css'))
+    .pipe(concat(cssFileName))
     .pipe(gcmq())
     .pipe(autoprefixer({
       cascade: false

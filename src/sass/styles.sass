@@ -1,12 +1,6 @@
-@import 'global-mixins.sass'
-
-@use '../../node_modules/normalize.css/normalize.css'
-@use 'my-normalize.sass'
-
-
-//
+/*!
   "2020 look" - BackupPC CSS definitions mod
-  Version 1.0, released 5 Oct 2020.
+  Version 1.0, released 6 Oct 2020.
 
   AUTHOR
     Sergey Klochko <sergey@klochko.ru>
@@ -14,6 +8,10 @@
   COPYRIGHT
     Copyright (C) 2020 Sergey Klochko
 
+
+@import 'global-mixins.sass'
+@use '../../node_modules/normalize.css/normalize.css'
+@use 'my-normalize.sass'
 
 
 //- global
@@ -24,6 +22,7 @@
     color: $color
     font-variant: all-small-caps
     border: 1px solid $color
+    +w(auto)
     &:hover
       +bgcolor($color)
       color: $white
@@ -43,6 +42,7 @@ $faint-weak: #f6f6f6
 $critic: #ff4b4b
 
 $font: 'Roboto', Arial, Helvetica, sans-serif
+$fsborder: 1px solid $faint-strong
 
 // manual line height
 $lh: 1.5
@@ -118,21 +118,32 @@ a
     font-variant: inherit
 
 input[type='text']
-  +h(30px)
-  padding: 0px 10px
+  padding: 5px 10px
+  max-width: 500px
   +mw(40px)
-  +w(auto)
-  border: 1px solid $faint-strong
+  +w(100%)
+  border: $fsborder
   +bgcolor($white)
   color: $black
   &:hover
     cursor: pointer
 
+textarea
+  +w(100%)
+  max-width: 500px
+  +fs(inherit)
+  padding: 5px 10px
+  border: $fsborder
+  border-radius: 0px
+  font-family: inherit
+  font-weight: inherit
+
+
 input[type='submit'], input[type='button'], input[name='SetComment']
-  +h(30px)
   padding: 0px 10px
+  +h(30px)
   +mw(40px)
-  +w(auto)
+  +w(100%)
   text-transform: uppercase
   border: none
   border-radius: 4px
@@ -142,10 +153,14 @@ input[type='submit'], input[type='button'], input[name='SetComment']
     cursor: pointer
     +bgcolor($accent-strong)
 
+input[type='submit'], input[type=button]
+  +w(auto)
+
 +button('Save', $accent)
   +fs(18px)
 +button('Delete', $critic)
 +button('Add', $accent)
++button('Insert', $accent)
 
 input[name='SetComment']
   +bgcolor($accent !important)
@@ -164,7 +179,7 @@ input[name='SetComment']
 
 
   select, input[type='text']
-    border: 1px solid $faint-strong
+    border: $fsborder
   select
     margin: 0 30px 10px
     padding: 6px 10px
@@ -212,23 +227,23 @@ h2 + form // backup browse page elements
     border: none
   td:last-child
     table td
-      border: 1px solid $faint-strong
+      border: $fsborder
       +pr(10px)
   input[type='checkbox']
     +mr(10px)
   img
     +w(auto)
     +inline
-    height: 23px
+    // height: 23px // reserved for 4k+ monitors
   td
     br + table
       img
-        //+mt(3px)
+        +mt(3px) // for old png icons
         +mr(5px)
   table table:first-child
     td
       padding: 0
-      +lh(18px)
+      +lh(16px)
   .fviewoff
     img
       +w(auto !important)
@@ -257,14 +272,14 @@ li > form
 
 .tableStnd
   td
-    border: 1px solid $faint-strong
+    border: $fsborder
     padding: 5px 10px
 
 table.sortable
   td, td:last-child
     +pl(10px)
     +pr(10px)
-    border: 1px solid $faint-strong
+    border: $fsborder
 
 #host_summary_backups
   +mt(10px)
@@ -445,7 +460,7 @@ select
 	padding: 6px 30px 6px 10px
 	box-sizing: border-box
 	margin: 0
-	border: 1px solid $faint-strong
+	border: $fsborder
 	-moz-appearance: none
 	-webkit-appearance: none
 	appearance: none
@@ -462,4 +477,34 @@ select:hover
 
 select:focus
 	outline: none
+
+// Config: CGI Page
+
+#Content > table:nth-child(5) > tbody > tr:nth-child(8) > td:nth-child(2) > table
+  tr
+    background-color: $white
+    border-top: 2px solid $faint-strong
+    table > tbody > tr
+      border: none
+
+#Content > table:nth-child(5) > tbody > tr:nth-child(9) > td:nth-child(2) > table > tbody > tr
+  background: $white !important
+
+#Content > table:nth-child(5) > tbody
+  .editSubTable tr, .editSubTable td
+    border: none
+    background: $white !important
+
+#Content > table:nth-child(5) > tbody > tr:nth-child(8) > td:nth-child(2) > table
+  input
+    margin-top: 10px
+
+// directory backup history's page table
+
+// .fviewheader + .fviewheader ~ tr, .fviewheader + .fviewheader ~ tr,
+.fviewheader td, .fviewheader+.fviewheader~tr td
+    border: $fsborder
+td.histViewMis
+  +bgcolor(#fcc)
+
 
