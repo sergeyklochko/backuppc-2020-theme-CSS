@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "eslint-plugin-jsx-a11y": "^6.1.2",
+    "gulp-copy": "^4.0.1",
     "gulp-print": "^5.0.2",
     "normalize.css": "^8.0.1"
   },
