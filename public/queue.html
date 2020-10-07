@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="ru" id="here"><head><title>BackupPC Server Status</title><link rel="stylesheet" type="text/css" href="/BackupPC/BackupPC_mod.css?version=2" title="CSSFile"><link rel="apple-touch-icon" sizes="180x180" href="/BackupPC/apple-touch-icon.png?v=2"><link rel="icon" type="image/png" sizes="32x32" href="/BackupPC/favicon-32x32.png?v=2"><link rel="icon" type="image/png" sizes="16x16" href="/BackupPC/favicon-16x16.png?v=2"><link rel="mask-icon" href="/BackupPC/safari-pinned-tab.svg?v=2" color="#5bbad5"><link rel="shortcut icon" href="/BackupPC/favicon.ico?v=2"><meta http-equiv="pragma" content="no-cache"><script src="/BackupPC/sorttable.js"></script><meta name="viewport" content="width=device-width, initial-scale=1"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><link rel="icon" type="image/png" href="./img/favicon.png"><link rel="stylesheet" href="./css/BackupPC_2020_mod.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,600,700,900"></head><body onload="document.getElementById('NavMenu').style.height=document.body.scrollHeight"><div id="navigation-container"><div id="logo-container"><a href="https://backuppc.github.io/backuppc/"><img src="./img/backuppc.svg"></a></div><div class="NavMenu section-title"><h2 class="NavTitle">proto.mumuproject.com</h2></div><div class="NavMenu host"><a class="NavCurrent" href="./server.html">proto.mumuproject.com Home</a><a href="./browse.html">Browse backups</a><a href="/BackupPC_Admin?action=view&amp;type=LOG&amp;host=proto.mumuproject.com">LOG file</a><a href="/BackupPC_Admin?action=LOGlist&amp;host=proto.mumuproject.com">LOG files</a><a href="/BackupPC_Admin?action=editConfig&amp;host=proto.mumuproject.com">Edit Config</a></div><div class="NavMenu" id="NavMenu"><h2 class="NavTitle">Hosts</h2><select onchange="document.location=this.value"><option value="#">Select a host...</option><option value="?host=proto.mumuproject.com">proto.mumuproject.com</option><option value="?host=s1.mumuproject.com">s1.mumuproject.com</option><option value="?host=s2.mumuproject.com">s2.mumuproject.com</option></select><form action="/BackupPC_Admin" method="get"><input type="text" name="host" size="14" maxlength="64"><input type="hidden" name="action" value="hostInfo"><input type="submit" value="Go" name="ignore"></form><h2 class="NavTitle">Server</h2><a class="NavCurrent" href="./index.html">Status</a><a href="./hostsummary.html">Host Summary</a><a href="./config.html">Edit Config</a><a href="./hosts.html">Edit Hosts</a><a href="./admin.html">Admin Options</a><a href="./log.html">LOG file</a><a href="./logs.html">Old LOGs</a><a href="./email.html">Email summary</a><a href="./queue.html">Current queues</a><a href="./docs.html">Documentation</a><a href="https://github.com/backuppc/backuppc/wiki">Wiki</a><a href="https://backuppc.github.io/backuppc">Homepage</a></div></div><!-- end #navigation-container--></body><div id="Content"><h1>Backup Queue Summary</h1>
+<h2>User Queue Summary</h2>
+<p><The>following user requests are currently queued:</The></p>
+<table class="tableStnd sortable" border cellspacing="1" cellpadding="3" width="80%">
+<tr class="tableheader"><td> Host </td>
+<td> Action </td>
+<td> Req Time </td>
+<td> User </td></tr>
+</table>
+<h2>Background Queue Summary</h2>
+<p><The>following background requests are currently queued:</The></p>
+<table class="tableStnd sortable" border cellspacing="1" cellpadding="3" width="80%">
+<tr class="tableheader"><td> Host </td>
+<td> Action </td>
+<td> Req Time </td>
+<td> User </td></tr>
+</table>
+<h2>Command Queue Summary</h2>
+<p><The>following command requests are currently queued:</The></p>
+<table class="tableStnd sortable" border cellspacing="1" cellpadding="3" width="80%">
+<tr class="tableheader"><td> Host </td>
+<td> Action </td>
+<td> Req Time </td>
+<td> User </td>
+<td> Command </td></tr>
+</table></div></html>
