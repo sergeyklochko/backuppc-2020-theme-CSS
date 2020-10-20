@@ -1,6 +1,6 @@
 /*!
   "2020 look" - BackupPC CSS definitions mod
-  Version 1.0, released 6 Oct 2020.
+  Version 1.0, released 13 Oct 2020.
 
   AUTHOR
     Sergey Klochko <sergey@klochko.ru>
@@ -522,10 +522,24 @@ td.histViewMis
       padding: 10px 30px
       line-height: 50px
     input[type=text]
-      min-width: 377px
+      min-width: 386px
 
 // EditConfig
 
 .EditConfig
   input[type='text'], input[type='password']
     +mr(10px)
+
+// client lookup name
+
+.editSubTable-ClientNameAlias
+  display: inline
+  tr:first-child, td:first-child
+    border: 1px solid $white !important
+    +bgcolor(white)
+  .hasButtons
+    display: inline
+    padding: 10px 10px
+    line-height: 50px
+  input[type=text]
+    min-width: 386px

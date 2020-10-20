@@ -160,7 +160,7 @@ function build () {
   buildCSS()
   buildHTML()
   buildImages()
-  buildJS()
+  //buildJS()
   copyPublic()
 }
 
